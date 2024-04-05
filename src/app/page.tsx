@@ -12,7 +12,7 @@ export default function Home() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post('http://localhost:3000/api/submit', {}).then(r => {
+    axios.post('/v1/ai/music', {}).then(r => {
       console.log(r);
     });
 
