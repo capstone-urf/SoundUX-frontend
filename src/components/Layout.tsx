@@ -1,6 +1,6 @@
+import { Flex } from '@chakra-ui/layout';
 import { ReactNode } from 'react';
 
-import { Flex } from '@chakra-ui/layout';
 import Header from '@/components/Header';
 
 interface LayoutProps {
