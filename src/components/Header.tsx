@@ -1,5 +1,4 @@
-import { Text } from '@chakra-ui/react';
-import { Flex } from '@chakra-ui/layout';
+import { Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 
 const Header = () => {

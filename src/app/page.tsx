@@ -1,22 +1,32 @@
 'use client';
 
-import React, { FormEvent } from 'react';
+import {
+  Flex,
+  Button,
+  Input,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+} from '@chakra-ui/react';
 import axios from 'axios';
+import React, { FormEvent, useState } from 'react';
 
+import PlayerDialog from '@/components/dialog/PlayerDialog';
 import Layout from '@/components/Layout';
-import { Input } from '@chakra-ui/input';
-import { Button } from '@chakra-ui/react';
-import { Flex } from '@chakra-ui/layout';
 
 export default function Home() {
+  const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post('/v1/ai/music', {}).then(r => {
-      console.log(r);
+    axios.post('/v1/ai/music', {}).then(() => {
+      alert('검색 결과');
     });
-
-    console.log('submit');
   };
 
   return (
@@ -39,6 +49,35 @@ export default function Home() {
           </Button>
         </Flex>
       </form>
+
+      <TableContainer mt={12}>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>제목</Th>
+              <Th>제작자</Th>
+              <Th>금액</Th>
+              <Th>듣기</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>Soft Pedal</Td>
+              <Td>solxis</Td>
+              <Td>9,900원</Td>
+              <Td onClick={() => setIsPlayerOpen(true)}>듣기</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
+
+      {isPlayerOpen && (
+        <PlayerDialog
+          isOpen={true}
+          onClose={() => setIsPlayerOpen(false)}
+          musicId="2035308706"
+        />
+      )}
     </Layout>
   );
 }
