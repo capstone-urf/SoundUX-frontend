@@ -5,13 +5,11 @@ const customTheme = extendTheme({
     initialColorMode: 'light',
     useSystemColorMode: false,
   },
-  colors: {
-  },
+  colors: {},
   components: {
     Link: {},
   },
-  layerStyles: {
-  },
+  layerStyles: {},
   styles: {
     global: {
       body: {
