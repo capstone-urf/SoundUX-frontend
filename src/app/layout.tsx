@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { ReactNode } from 'react';
 
 import { Providers } from '@/app/providers';
 import '@/styles/reset.css';
