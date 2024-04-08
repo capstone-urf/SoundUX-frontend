@@ -21,3 +21,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOUNDUX_URF }}'
           channelId: live
           projectId: soundux-urf
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
