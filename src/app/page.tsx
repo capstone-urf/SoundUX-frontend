@@ -24,6 +24,7 @@ import { numberToWon } from '@/utils/price-utils';
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [secret, setSecret] = useState<string>('');
   const [script, setScript] = useState<string>('');
   const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false);
   const [selectedMusicId, setSelectedMusicId] = useState<string | undefined>(
@@ -33,7 +34,7 @@ export default function Home() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!script) return;
+    if (!script || !secret) return;
     setLoading(true);
 
     axios
@@ -43,7 +44,7 @@ export default function Home() {
         {
           baseURL: process.env.NEXT_PUBLIC_API_URL,
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_SECRET}`,
+            Authorization: `Bearer ${secret}`,
           },
         },
       )
@@ -60,10 +61,19 @@ export default function Home() {
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
-        <Flex gap="4px">
+        <Input
+          h="40px"
+          placeholder="시크릿 키"
+          value={secret}
+          onChange={e => setSecret(e.target.value)}
+          borderColor="#eeeeee"
+          focusBorderColor="#dddddd"
+        />
+        <Flex mt={4} gap="4px">
           <Input
             h="40px"
             flex={1}
+            placeholder="스크립트 입력"
             value={script}
             onChange={e => setScript(e.target.value)}
             borderColor="#eeeeee"
