@@ -42,3 +42,6 @@ next-env.d.ts
 *.ipr
 
 .env
+.firebase
+.firebase/
+firebase-debug.log
