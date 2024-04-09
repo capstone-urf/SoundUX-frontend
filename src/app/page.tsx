@@ -16,17 +16,45 @@ import axios from 'axios';
 import React, { FormEvent, useState } from 'react';
 
 import PlayerDialog from '@/components/dialog/PlayerDialog';
+import ProgressDialog from '@/components/dialog/ProgressDialog';
 import Layout from '@/components/Layout';
+import { MusicList } from '@/types/Music';
+import { numberToWon } from '@/utils/price-utils';
 
 export default function Home() {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [script, setScript] = useState<string>('');
   const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false);
+  const [selectedMusicId, setSelectedMusicId] = useState<string | undefined>(
+    undefined,
+  );
+  const [musicList, setMusicList] = useState<MusicList | undefined>(undefined);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!script) return;
+    setLoading(true);
 
-    axios.post('/v1/ai/music', {}).then(() => {
-      alert('검색 결과');
-    });
+    axios
+      .post<MusicList>(
+        '/ai/v1/music',
+        { script },
+        {
+          baseURL: process.env.NEXT_PUBLIC_API_URL,
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_SECRET}`,
+          },
+        },
+      )
+      .then(({ data }) => {
+        setMusicList(data);
+      })
+      .catch(() => {
+        alert('검색 중 오류가 발생했습니다.');
+        setMusicList(undefined);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -36,6 +64,8 @@ export default function Home() {
           <Input
             h="40px"
             flex={1}
+            value={script}
+            onChange={e => setScript(e.target.value)}
             borderColor="#eeeeee"
             focusBorderColor="#dddddd"
           />
@@ -43,7 +73,9 @@ export default function Home() {
             h="40px"
             bgColor="white"
             border="1px solid #eeeeee"
+            type="submit"
             _hover={{ bgColor: '#dddddd' }}
+            _focus={{ bgColor: '#dddddd' }}
           >
             검색
           </Button>
@@ -56,28 +88,49 @@ export default function Home() {
             <Tr>
               <Th>제목</Th>
               <Th>제작자</Th>
+              <Th>장르</Th>
+              <Th>무드</Th>
+              <Th>악기</Th>
               <Th>금액</Th>
               <Th>듣기</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>Soft Pedal</Td>
-              <Td>solxis</Td>
-              <Td>9,900원</Td>
-              <Td onClick={() => setIsPlayerOpen(true)}>듣기</Td>
-            </Tr>
+            {musicList &&
+              musicList.musicList.length > 0 &&
+              musicList.musicList.map(music => (
+                <Tr key={music.id}>
+                  <Td>{music.title}</Td>
+                  <Td>{music.artist}</Td>
+                  <Td>{music.genres.join(', ')}</Td>
+                  <Td>{music.moods.join(', ')}</Td>
+                  <Td>{music.instruments.join(', ')}</Td>
+                  <Td>{numberToWon(music.price)}</Td>
+                  <Td
+                    onClick={() => {
+                      setIsPlayerOpen(true);
+                      setSelectedMusicId(music.id);
+                    }}
+                  >
+                    <Flex cursor="pointer">듣기</Flex>
+                  </Td>
+                </Tr>
+              ))}
           </Tbody>
         </Table>
       </TableContainer>
 
-      {isPlayerOpen && (
+      {isPlayerOpen && selectedMusicId && (
         <PlayerDialog
           isOpen={true}
-          onClose={() => setIsPlayerOpen(false)}
-          musicId="2035308706"
+          onClose={() => {
+            setIsPlayerOpen(false);
+            setSelectedMusicId(undefined);
+          }}
+          musicId={selectedMusicId}
         />
       )}
+      <ProgressDialog isOpen={loading} />
     </Layout>
   );
 }

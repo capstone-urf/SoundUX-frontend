@@ -5,8 +5,6 @@ import {
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 
-import { PLAYER_URL } from '@/constants';
-
 interface PlayerDialogProps {
   isOpen: boolean;
   onClose: () => void;
@@ -27,7 +25,7 @@ const PlayerDialog = ({ isOpen, onClose, musicId }: PlayerDialogProps) => {
         <AlertDialogContent maxW="1080px">
           <iframe
             title="player"
-            src={`${PLAYER_URL}${musicId}`}
+            src={`${process.env.NEXT_PUBLIC_PLAYER_URL}${musicId}`}
             width="100%"
             height={220}
           />
