@@ -40,3 +40,8 @@ next-env.d.ts
 *.iws
 *.iml
 *.ipr
+
+.env
+.firebase
+.firebase/
+firebase-debug.log
