@@ -22,4 +22,4 @@ jobs:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           NEXT_PUBLIC_PLAYER_URL: https://www.musicplug.co.kr/index/new_mp3/playert.php?it_id=
           NEXT_PUBLIC_API_URL: /api
-          NEXT_PUBLIC_API_SECRET: '${{ secrets.NEXT_PUBLIC_API_SECRET }}'
+#          NEXT_PUBLIC_API_SECRET: '${{ secrets.NEXT_PUBLIC_API_SECRET }}'
