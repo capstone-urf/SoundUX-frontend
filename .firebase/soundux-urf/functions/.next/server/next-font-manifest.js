@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/haklee/Projects/hufs/capstone/soundux-urf/src/app/layout":["static/media/ff840cfebfb63b0c-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';
