@@ -8,7 +8,6 @@ export const postAnalysisSearch = async (request: AnalysisSearchRequest) => {
       tags: request.tags,
       weight: request.weight,
     },
-    { headers: { Authorization: `Bearer ${request.secret}` } },
   );
 
   return data;

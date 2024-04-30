@@ -9,7 +9,6 @@ type AnalysisItemType = {
 };
 
 export type AnalysisSearchRequest = {
-  secret: string;
   tagSearch: boolean;
   tags: {
     genres: AnalysisItemType[];

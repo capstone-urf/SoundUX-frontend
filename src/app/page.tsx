@@ -76,7 +76,6 @@ export default function Home() {
 
     postAnalysisSearchMutation(
       {
-        secret,
         tagSearch: true,
         tags: analysis?.result,
         weight: {
