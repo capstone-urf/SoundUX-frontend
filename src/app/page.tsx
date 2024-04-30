@@ -70,6 +70,7 @@ export default function Home() {
     vocals: number,
   ) => {
     if (genres + instruments + keys + moods + vocals !== 1) return;
+    if (!analysis || !secret) return;
 
     setLoading(true);
 
