@@ -12,13 +12,21 @@ import {
   Tbody,
   Td,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import React, { FormEvent, useState } from 'react';
 
+import AnalysisList from '@/app/_components/AnalysisList';
+import AnalysisWeightInput from '@/app/_components/AnalysisWeightInput';
 import PlayerDialog from '@/components/dialog/PlayerDialog';
 import ProgressDialog from '@/components/dialog/ProgressDialog';
 import Layout from '@/components/Layout';
-import { MusicList } from '@/types/Music';
+import usePostAnalysisMutation from '@/hooks/mutations/usePostAnalysisMutation';
+import usePostAnalysisSearchMutation from '@/hooks/mutations/usePostAnalysisSearchMutation';
+import {
+  AnalysisRequest,
+  AnalysisResponse,
+  AnalysisSearchRequest,
+  MusicList,
+} from '@/types/Music';
 import { numberToWon } from '@/utils/price-utils';
 
 export default function Home() {
@@ -26,41 +34,71 @@ export default function Home() {
 
   const [secret, setSecret] = useState<string>('');
   const [script, setScript] = useState<string>('');
+  const [analysis, setAnalysis] = useState<AnalysisResponse | undefined>(
+    undefined,
+  );
   const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false);
   const [selectedMusicId, setSelectedMusicId] = useState<string | undefined>(
     undefined,
   );
   const [musicList, setMusicList] = useState<MusicList | undefined>(undefined);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const { mutate: postAnalysisMutation } = usePostAnalysisMutation();
+  const { mutate: postAnalysisSearchMutation } =
+    usePostAnalysisSearchMutation();
+
+  const handleAnalysisScriptSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!script || !secret) return;
     setLoading(true);
 
-    axios
-      .post<MusicList>(
-        '/ai/v1/music',
-        { script },
-        {
-          baseURL: process.env.NEXT_PUBLIC_API_URL,
-          headers: {
-            Authorization: `Bearer ${secret}`,
-          },
-        },
-      )
-      .then(({ data }) => {
-        setMusicList(data);
-      })
-      .catch(() => {
+    postAnalysisMutation({ script, secret } as AnalysisRequest, {
+      onSuccess: data => setAnalysis(data),
+      onError: () => {
         alert('검색 중 오류가 발생했습니다.');
-        setMusicList(undefined);
-      })
-      .finally(() => setLoading(false));
+        setAnalysis(undefined);
+      },
+      onSettled: () => setLoading(false),
+    });
+  };
+
+  const handleSubmit = (
+    genres: number,
+    instruments: number,
+    keys: number,
+    moods: number,
+    vocals: number,
+  ) => {
+    if (genres + instruments + keys + moods + vocals !== 1) return;
+    if (!analysis || !secret) return;
+
+    setLoading(true);
+
+    postAnalysisSearchMutation(
+      {
+        tagSearch: true,
+        tags: analysis?.result,
+        weight: {
+          genres,
+          instruments,
+          keys,
+          moods,
+        },
+      } as AnalysisSearchRequest,
+      {
+        onSuccess: data => setMusicList(data),
+        onError: () => {
+          alert('검색 중 오류가 발생했습니다.');
+          setMusicList(undefined);
+        },
+        onSettled: () => setLoading(false),
+      },
+    );
   };
 
   return (
     <Layout>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleAnalysisScriptSubmit}>
         <Input
           h="40px"
           placeholder="시크릿 키"
@@ -91,6 +129,9 @@ export default function Home() {
           </Button>
         </Flex>
       </form>
+
+      {analysis && <AnalysisList analysis={analysis} />}
+      <AnalysisWeightInput handleClick={handleSubmit} />
 
       <TableContainer mt={12}>
         <Table variant="simple">

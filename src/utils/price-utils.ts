@@ -1,7 +1,7 @@
-export const numberToWon = (number: number | string): string => {
-  if (typeof number === 'string') number = parseInt(number, 10);
+export const numberToWon = (price: number | string): string => {
+  if (typeof price === 'string') price = parseInt(price, 10);
 
-  return number.toLocaleString('ko-KR', {
+  return price.toLocaleString('ko-KR', {
     style: 'currency',
     currency: 'KRW',
   });

@@ -14,8 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Flex
         w="100%"
         maxW="1200px"
-        height="100%"
-        p="88px 20px 0 20px"
+        p="88px 20px 0"
         mx="auto"
         flexDir="column"
       >
