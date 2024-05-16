@@ -1,16 +1,21 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
+import { rem } from '@/styles/pxto';
+
 export const theme = createGlobalTheme(':root', {
   colors: {
     white: '#FFFFFF',
     spectrum: '#B2B2B2',
     gray: '#4C4C4C',
     black: '#000000',
+    border: '#272727',
     primary: '#20FFA2',
     secondary: '#8A8A8A',
     background: '#1A1A1A',
   },
-  fontSizes: {},
+  fontSizes: {
+
+  },
   fontWeights: {
     hairline: '100',
     thin: '200',
@@ -55,5 +60,11 @@ export const theme = createGlobalTheme(':root', {
       flexDirection: 'column',
       justifyContent: 'center',
     },
+  },
+  sizes: {
+    app: rem(1512),
+  },
+  zIndex: {
+    header: '1024',
   },
 });
