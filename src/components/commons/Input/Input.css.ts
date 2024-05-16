@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css';
 
-import { rem } from '@/styles/pxto';
-import { theme } from '@/styles/styles.css';
+import { rem, theme } from '@/styles';
 
 export const inputContainer = style({
   position: 'relative',
   width: '100%',
+  maxWidth: rem(931),
   marginTop: rem(48),
   paddingLeft: rem(60),
   border: `${rem(1)} solid ${theme.colors.border}`,
@@ -17,11 +17,14 @@ export const inputContainer = style({
 
 export const input = style({
   width: '100%',
-  maxWidth: rem(931),
   paddingBlock: rem(30),
   paddingRight: rem(30),
   color: theme.colors.white,
   fontSize: rem(18),
+
+  '::placeholder': {
+    color: 'transparent',
+  },
 });
 
 export const inputIcon = style({
@@ -30,4 +33,24 @@ export const inputIcon = style({
   top: '50%',
   transform: 'translateY(-50%)',
   left: rem(30),
+});
+
+export const placeholderWrapper = style({
+  ...theme.layouts.centerY,
+  position: 'absolute',
+  height: '100%',
+  width: '100%',
+  top: '50%',
+  left: rem(60),
+  transform: 'translateY(-50%)',
+  pointerEvents: 'none',
+});
+
+export const placeholder = style({
+  position: 'absolute',
+  width: '100%',
+  color: theme.colors.placeholder,
+  fontSize: rem(18),
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
 });

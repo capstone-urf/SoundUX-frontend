@@ -7,15 +7,14 @@ export const theme = createGlobalTheme(':root', {
     white: '#FFFFFF',
     spectrum: '#B2B2B2',
     gray: '#4C4C4C',
+    placeholder: 'rgba(139, 139, 139, 0.72)',
     black: '#000000',
     border: '#272727',
     primary: '#20FFA2',
     secondary: '#8A8A8A',
     background: '#1A1A1A',
   },
-  fontSizes: {
-
-  },
+  fontSizes: {},
   fontWeights: {
     hairline: '100',
     thin: '200',

@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { rem } from '@/styles/pxto';
-import { theme } from '@/styles/styles.css';
+import { rem, theme } from '@/styles';
 
 export const mainWrapper = style({
   ...theme.layouts.column,

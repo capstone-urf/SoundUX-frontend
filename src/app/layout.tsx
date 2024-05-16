@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 
 import { Providers } from '@/app/providers';
 import '@/styles/globals.css';
-import '@/styles/styles.css';
 
 export const metadata: Metadata = {
   title: 'SoundUX',
