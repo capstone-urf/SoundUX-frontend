@@ -40,10 +40,13 @@ export const placeholderWrapper = style({
   position: 'absolute',
   height: '100%',
   width: '100%',
+  maxWidth: rem(931),
   top: '50%',
-  left: rem(60),
+  left: 0,
+  paddingLeft: rem(60),
   transform: 'translateY(-50%)',
   pointerEvents: 'none',
+  overflowX: 'hidden',
 });
 
 export const placeholder = style({
