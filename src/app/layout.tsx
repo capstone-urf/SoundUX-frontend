@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 
 import { Providers } from '@/app/providers';
-import '@/styles/reset.css';
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'SoundUX',

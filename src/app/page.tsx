@@ -1,187 +1,55 @@
 'use client';
 
-import {
-  Flex,
-  Button,
-  Input,
-  TableContainer,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-} from '@chakra-ui/react';
-import React, { FormEvent, useState } from 'react';
+import Image from 'next/image';
+import { ReactElement, useState } from 'react';
 
-import AnalysisList from '@/app/_components/AnalysisList';
-import AnalysisWeightInput from '@/app/_components/AnalysisWeightInput';
-import PlayerDialog from '@/components/dialog/PlayerDialog';
-import ProgressDialog from '@/components/dialog/ProgressDialog';
-import Layout from '@/components/Layout';
-import usePostAnalysisMutation from '@/hooks/mutations/usePostAnalysisMutation';
-import usePostAnalysisSearchMutation from '@/hooks/mutations/usePostAnalysisSearchMutation';
-import {
-  AnalysisRequest,
-  AnalysisResponse,
-  AnalysisSearchRequest,
-  MusicList,
-} from '@/types/Music';
-import { numberToWon } from '@/utils/price-utils';
+import Input from '@/components/commons/Input';
+import Layout from '@/components/layouts/Layout';
+import { placeholders } from '@/contants';
 
-export default function Home() {
-  const [loading, setLoading] = useState<boolean>(false);
+import MainRecommend from './_components/MainRecommendList';
+import * as styles from './page.css';
+import Waveform from '@/components/Waveform';
 
-  const [secret, setSecret] = useState<string>('');
-  const [script, setScript] = useState<string>('');
-  const [analysis, setAnalysis] = useState<AnalysisResponse | undefined>(
-    undefined,
-  );
-  const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false);
-  const [selectedMusicId, setSelectedMusicId] = useState<string | undefined>(
-    undefined,
-  );
-  const [musicList, setMusicList] = useState<MusicList | undefined>(undefined);
-
-  const { mutate: postAnalysisMutation } = usePostAnalysisMutation();
-  const { mutate: postAnalysisSearchMutation } =
-    usePostAnalysisSearchMutation();
-
-  const handleAnalysisScriptSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!script || !secret) return;
-    setLoading(true);
-
-    postAnalysisMutation({ script, secret } as AnalysisRequest, {
-      onSuccess: data => setAnalysis(data),
-      onError: () => {
-        alert('검색 중 오류가 발생했습니다.');
-        setAnalysis(undefined);
-      },
-      onSettled: () => setLoading(false),
-    });
-  };
-
-  const handleSubmit = (
-    genres: number,
-    instruments: number,
-    keys: number,
-    moods: number,
-    vocals: number,
-  ) => {
-    if (genres + instruments + keys + moods + vocals !== 1) return;
-    if (!analysis || !secret) return;
-
-    setLoading(true);
-
-    postAnalysisSearchMutation(
-      {
-        tagSearch: true,
-        tags: analysis?.result,
-        weight: {
-          genres,
-          instruments,
-          keys,
-          moods,
-        },
-      } as AnalysisSearchRequest,
-      {
-        onSuccess: data => setMusicList(data),
-        onError: () => {
-          alert('검색 중 오류가 발생했습니다.');
-          setMusicList(undefined);
-        },
-        onSettled: () => setLoading(false),
-      },
-    );
-  };
+export default function Home(): ReactElement {
+  const [search, setSearch] = useState<string>('');
 
   return (
     <Layout>
-      <form onSubmit={handleAnalysisScriptSubmit}>
-        <Input
-          h="40px"
-          placeholder="시크릿 키"
-          value={secret}
-          onChange={e => setSecret(e.target.value)}
-          borderColor="#eeeeee"
-          focusBorderColor="#dddddd"
+      <section className={styles.entryContainer}>
+        <Image
+          className={styles.entryBackgroundImage}
+          src="/assets/image_main_bg.png"
+          alt="Main Album Image"
+          fill={true}
+          priority={true}
         />
-        <Flex mt={4} gap="4px">
+        <div className={styles.entryGradient} />
+        <div className={styles.mainContainer}>
+          <h2 className={styles.mainTitle}>
+            오직 단 한 문장으로
+            <br />
+            당신의 작품을 더욱 풍성하게
+          </h2>
           <Input
-            h="40px"
-            flex={1}
-            placeholder="스크립트 입력"
-            value={script}
-            onChange={e => setScript(e.target.value)}
-            borderColor="#eeeeee"
-            focusBorderColor="#dddddd"
+            id="search"
+            value={search}
+            placeholders={placeholders}
+            placeholderDuration={4000}
+            onChange={e => setSearch(e.target.value)}
           />
-          <Button
-            h="40px"
-            bgColor="white"
-            border="1px solid #eeeeee"
-            type="submit"
-            _hover={{ bgColor: '#dddddd' }}
-            _focus={{ bgColor: '#dddddd' }}
-          >
-            검색
-          </Button>
-        </Flex>
-      </form>
+          <MainRecommend />
+        </div>
+      </section>
 
-      {analysis && <AnalysisList analysis={analysis} />}
-      <AnalysisWeightInput handleClick={handleSubmit} />
-
-      <TableContainer mt={12}>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>제목</Th>
-              <Th>제작자</Th>
-              <Th>장르</Th>
-              <Th>무드</Th>
-              <Th>악기</Th>
-              <Th>금액</Th>
-              <Th>듣기</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {musicList &&
-              musicList.musicList.length > 0 &&
-              musicList.musicList.map(music => (
-                <Tr key={music.id}>
-                  <Td>{music.title}</Td>
-                  <Td>{music.artist}</Td>
-                  <Td>{music.genres.join(', ')}</Td>
-                  <Td>{music.moods.join(', ')}</Td>
-                  <Td>{music.instruments.join(', ')}</Td>
-                  <Td>{numberToWon(music.price)}</Td>
-                  <Td
-                    onClick={() => {
-                      setIsPlayerOpen(true);
-                      setSelectedMusicId(music.id);
-                    }}
-                  >
-                    <Flex cursor="pointer">듣기</Flex>
-                  </Td>
-                </Tr>
-              ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-
-      {isPlayerOpen && selectedMusicId && (
-        <PlayerDialog
-          isOpen={true}
-          onClose={() => {
-            setIsPlayerOpen(false);
-            setSelectedMusicId(undefined);
-          }}
-          musicId={selectedMusicId}
-        />
-      )}
-      <ProgressDialog isOpen={loading} />
+      <section className={styles.showcaseContainer}>
+        <h2 className={styles.showcaseTitle}>
+          다양한 형태의 창작물에
+          <br />
+          사용 되고 있습니다
+        </h2>
+        <Waveform audioUrl={'https://musicplug.co.kr/index/musicplug01.mp3'}/>
+      </section>
     </Layout>
   );
 }
