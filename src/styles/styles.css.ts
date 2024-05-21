@@ -62,6 +62,7 @@ export const theme = createGlobalTheme(':root', {
   },
   sizes: {
     app: rem(1512),
+    main: rem(931),
   },
   zIndex: {
     header: '1024',

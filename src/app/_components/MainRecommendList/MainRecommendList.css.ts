@@ -4,7 +4,7 @@ import { rem, theme } from '@/styles';
 
 export const recommendContainer = style({
   width: '100%',
-  maxWidth: rem(931),
+  maxWidth: theme.sizes.main,
   marginTop: rem(20),
 });
 

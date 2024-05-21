@@ -49,4 +49,21 @@ export const mainTitle = style({
   }),
 });
 
-export const recommendedMusicList = style({});
+export const showcaseContainer = style({
+  ...theme.layouts.column,
+  width: '100%',
+  maxWidth: theme.sizes.main,
+  paddingBlock: rem(69),
+});
+
+export const showcaseTitle = style({
+  fontSize: rem(26),
+  fontWeight: theme.fontWeights.semibold,
+  textAlign: 'left',
+  lineHeight: '130%',
+
+  ...breakpoint({
+    tablet: { fontSize: rem(32) },
+    desktop: { fontSize: rem(40) },
+  }),
+});

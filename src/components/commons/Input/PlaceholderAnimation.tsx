@@ -23,14 +23,14 @@ const PlaceholderAnimation = ({
 
   return (
     <div className={styles.placeholderWrapper}>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         <motion.span
           key={placeholders[index]}
           className={styles.placeholder}
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 12 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.75, ease: 'easeInOut' }}
         >
           {placeholders[index]}
         </motion.span>

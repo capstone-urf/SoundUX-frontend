@@ -2,9 +2,9 @@ import { ReactElement } from 'react';
 
 import { StarIcon } from '@/components/icons';
 
-import * as styles from './MainRecommend.css';
+import * as styles from './MainRecommendList.css';
 
-const MainRecommend = (): ReactElement => {
+const MainRecommendList = (): ReactElement => {
   return (
     <div className={styles.recommendContainer}>
       <h3 className={styles.recommendTitle}>
@@ -15,4 +15,4 @@ const MainRecommend = (): ReactElement => {
   );
 };
 
-export default MainRecommend;
+export default MainRecommendList;
