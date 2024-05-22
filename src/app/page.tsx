@@ -3,13 +3,13 @@
 import Image from 'next/image';
 import { ReactElement, useState } from 'react';
 
+import Audio from '@/components/Audio';
 import Input from '@/components/commons/Input';
 import Layout from '@/components/layouts/Layout';
-import { placeholders } from '@/contants';
+import { placeholders } from '@/constants';
 
 import MainRecommend from './_components/MainRecommendList';
 import * as styles from './page.css';
-import Waveform from '@/components/Waveform';
 
 export default function Home(): ReactElement {
   const [search, setSearch] = useState<string>('');
@@ -48,7 +48,7 @@ export default function Home(): ReactElement {
           <br />
           사용 되고 있습니다
         </h2>
-        <Waveform audioUrl={'https://musicplug.co.kr/index/musicplug01.mp3'}/>
+        <Audio audioUrl="http://localhost:3000/audio/1001741409.mp3" width="175px" height="18px" />
       </section>
     </Layout>
   );

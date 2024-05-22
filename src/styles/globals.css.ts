@@ -6,6 +6,7 @@ import { theme } from '@/styles/styles.css';
 
 globalStyle('html', {
   height: '100%',
+  colorScheme: 'dark',
 });
 
 globalStyle('body', {
