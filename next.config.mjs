@@ -10,6 +10,10 @@ const nextConfig = {
         source: '/api/:path*',
         destination: `http://131.186.17.176:8080/:path*`,
       },
+      {
+        source: '/audio/:path*',
+        destination: `https://www.musicplug.co.kr/preview/:path*`,
+      },
     ];
   },
 };

@@ -5,7 +5,7 @@ import { breakpoint, rem, theme } from '@/styles';
 export const mainWrapper = style({
   ...theme.layouts.column,
   width: '100%',
-  height: '100%',
+  minHeight: '100%',
 });
 
 export const main = style({

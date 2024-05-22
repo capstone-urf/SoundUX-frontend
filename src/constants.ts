@@ -5,3 +5,9 @@ export const placeholders: string[] = [
   '여름철 해변에서 서핑이나 수상 스포츠를 즐기는 영상에 어울리는 음악',
   '도시의 야경을 배경으로 한 루프탑 파티의 분위기에 어울리는 음악',
 ];
+
+export const QUERIES = {
+  AUDIO: {
+    KEY: 'audio',
+  },
+};
