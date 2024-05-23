@@ -12,12 +12,9 @@ export const waveformBar = style({
   display: 'inline-block',
   marginRight: rem(3),
   borderRadius: rem(16),
+  backgroundColor: theme.colors.gray,
 });
 
-export const waveformBarBackground = style({
-  backgroundColor: '#4C4C4C',
-});
-
-export const waveformBarPrimary = style({
+export const waveformBarActive = style({
   backgroundColor: theme.colors.primary,
 });

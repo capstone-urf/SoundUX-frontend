@@ -6,6 +6,7 @@ import {
   ReactNode,
   useEffect,
   useCallback,
+  MutableRefObject,
 } from 'react';
 
 interface AudioContextProps {
@@ -15,13 +16,15 @@ interface AudioContextProps {
   playAudio: (audioUrl: string) => void;
   pauseAudio: () => void;
   loadAudio: (audioUrl: string) => void;
+  setCurrentTime: (time: number) => void;
+  audioRef: MutableRefObject<HTMLAudioElement | null>;
 }
 
 const AudioContext = createContext<AudioContextProps | undefined>(undefined);
 
 export const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [currentTime, setCurrentTimeState] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -29,11 +32,11 @@ export const AudioProvider = ({ children }: { children: ReactNode }) => {
     audioRef.current = new Audio();
     const audio = audioRef.current;
 
-    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
+    const handleTimeUpdate = () => setCurrentTimeState(audio.currentTime);
     const handleLoadedMetadata = () => setDuration(audio.duration);
     const handleEnded = () => {
       setIsPlaying(false);
-      setCurrentTime(0);
+      setCurrentTimeState(0);
     };
     const handleError = (e: Event) => console.error('Audio error:', e);
 
@@ -79,6 +82,13 @@ export const AudioProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  const setCurrentTime = useCallback((time: number) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = time;
+      setCurrentTimeState(time);
+    }
+  }, []);
+
   return (
     <AudioContext.Provider
       value={{
@@ -88,6 +98,8 @@ export const AudioProvider = ({ children }: { children: ReactNode }) => {
         playAudio,
         pauseAudio,
         loadAudio,
+        setCurrentTime,
+        audioRef,
       }}
     >
       {children}

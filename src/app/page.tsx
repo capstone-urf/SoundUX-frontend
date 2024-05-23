@@ -48,7 +48,11 @@ export default function Home(): ReactElement {
           <br />
           사용 되고 있습니다
         </h2>
-        <Audio audioUrl="http://localhost:3000/audio/1001741409.mp3" width="175px" height="18px" />
+        <Audio
+          audioUrl="http://localhost:3000/audio/1001741409.mp3"
+          width="100%"
+          height="18px"
+        />
       </section>
     </Layout>
   );

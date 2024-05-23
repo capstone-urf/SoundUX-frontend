@@ -7,6 +7,10 @@ interface AudioProps {
   audioUrl: string;
   width: string;
   height: string;
+  visible?: boolean;
+  interactive?: boolean;
+  showPlayPauseButton?: boolean;
+  showDuration?: boolean;
 }
 
 const Audio = (props: AudioProps): ReactElement => {

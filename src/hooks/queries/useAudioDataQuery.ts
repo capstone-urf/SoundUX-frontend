@@ -12,12 +12,18 @@ const fetchAudioData = async (audioUrl: string, numberOfBars: number) => {
   const data = audioBuffer.getChannelData(0);
 
   const step = Math.floor(data.length / numberOfBars);
-  return Array.from({ length: numberOfBars }, (_, i) => {
+  const bars = Array.from({ length: numberOfBars }, (_, i) => {
     const segment = data.slice(i * step, (i + 1) * step);
     const max = segment.reduce((acc, val) => Math.max(acc, val), -Infinity);
     const min = segment.reduce((acc, val) => Math.min(acc, val), Infinity);
-    return max - min === 0 ? 0.05 : max - min;
+    const amplitude = max - min;
+    return amplitude === 0 ? 0.05 : amplitude;
   });
+
+  const maxBarHeight = Math.max(...bars);
+  const normalizedBars = bars.map(bar => bar / maxBarHeight);
+
+  return normalizedBars.map(bar => Math.max(bar, 0.05));
 };
 
 const calculateNumberOfBars = (containerWidth: number, barGap: number) =>
