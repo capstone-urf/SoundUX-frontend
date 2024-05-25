@@ -38,7 +38,7 @@ export const useAudioDataQuery = ({
   audioUrl,
   containerRef,
 }: UseAudioDataProps) => {
-  const barGap = 3;
+  const barGap = 2;
   const numberOfBars = containerRef.current
     ? calculateNumberOfBars(containerRef.current.clientWidth, barGap)
     : 0;

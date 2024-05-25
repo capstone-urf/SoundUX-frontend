@@ -17,7 +17,6 @@ export const inputContainer = style({
 
 export const input = style({
   width: '100%',
-  paddingBlock: rem(30),
   paddingRight: rem(30),
   color: theme.colors.white,
   fontSize: rem(18),
@@ -32,7 +31,6 @@ export const inputIcon = style({
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)',
-  left: rem(30),
 });
 
 export const placeholderWrapper = style({

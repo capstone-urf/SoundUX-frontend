@@ -14,8 +14,13 @@ export const header = style({
   }),
 });
 
-export const logo = style({
+export const branding = style({
   ...theme.layouts.center,
   height: rem(45),
+  fontSize: rem(24),
+  fontWeight: theme.fontWeights.medium,
   userSelect: 'none',
+  ...breakpoint({
+    tablet: { fontSize: rem(32) },
+  }),
 });

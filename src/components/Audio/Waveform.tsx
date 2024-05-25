@@ -75,7 +75,7 @@ const Waveform = ({
         const offsetX = clientX - rect.left;
         const newTime = (offsetX / rect.width) * duration;
         setCurrentTime(newTime);
-        audioRef.current.currentTime = newTime; // Ensure audio element's current time is updated
+        audioRef.current.currentTime = newTime;
       }
     },
     [duration, setCurrentTime, audioRef],
@@ -116,7 +116,7 @@ const Waveform = ({
           if (audioRef.current)
             audioRef.current.currentTime = Math.max(currentTime - 5, 0);
         } else if (e.key === ' ') {
-          e.preventDefault(); // Prevent default spacebar action
+          e.preventDefault();
           handlePlayPause();
         }
       }

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ReactElement, useState } from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 
 import Audio from '@/components/Audio';
 import Input from '@/components/commons/Input';
@@ -13,6 +13,11 @@ import * as styles from './page.css';
 
 export default function Home(): ReactElement {
   const [search, setSearch] = useState<string>('');
+
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    window.location.href = `/search?q=${encodeURIComponent(search)}`;
+  };
 
   return (
     <Layout>
@@ -31,13 +36,15 @@ export default function Home(): ReactElement {
             <br />
             당신의 작품을 더욱 풍성하게
           </h2>
-          <Input
-            id="search"
-            value={search}
-            placeholders={placeholders}
-            placeholderDuration={4000}
-            onChange={e => setSearch(e.target.value)}
-          />
+          <form className={styles.mainInputForm} onSubmit={handleSearch}>
+            <Input
+              id="search"
+              value={search}
+              placeholders={placeholders}
+              placeholderDuration={4000}
+              onChange={e => setSearch(e.target.value)}
+            />
+          </form>
           <MainRecommend />
         </div>
       </section>

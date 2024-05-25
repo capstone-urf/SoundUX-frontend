@@ -49,6 +49,11 @@ export const mainTitle = style({
   }),
 });
 
+export const mainInputForm = style({
+  width: '100%',
+  maxWidth: theme.sizes.main,
+});
+
 export const showcaseContainer = style({
   ...theme.layouts.column,
   width: '100%',

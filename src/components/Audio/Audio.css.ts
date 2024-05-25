@@ -10,7 +10,7 @@ export const waveformContainer = style({
 
 export const waveformBar = style({
   display: 'inline-block',
-  marginRight: rem(3),
+  marginRight: rem(2),
   borderRadius: rem(16),
   backgroundColor: theme.colors.gray,
 });
