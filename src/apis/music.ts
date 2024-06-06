@@ -1,5 +1,5 @@
 import instance from '@/apis/index';
-import { AnalysisSearchRequest, MusicList } from '@/types/Music';
+import { AnalysisSearchRequest, MusicList } from '@/types/music';
 
 export const postAnalysisSearch = async (request: AnalysisSearchRequest) => {
   const { data } = await instance.post<MusicList>(

@@ -1,2 +1,1 @@
-/api/* http://131.186.17.176:8080/:splat 200!
 /audio/* https://www.musicplug.co.kr/preview/:splat 200!

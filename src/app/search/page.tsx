@@ -1,34 +1,19 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
-import { ReactElement, useState } from 'react';
-
-import Input from '@/components/commons/Input';
 import Layout from '@/components/layouts/Layout';
-import { placeholders } from '@/constants';
+import { useAISearchFetch } from '@/hooks/mutations/useAISearchMutation';
 
-import * as styles from './page.css';
+import SearchPage from './SearchPage';
 
-export default function SearchPage(): ReactElement {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
-  const [searchQuery, setSearchQuery] = useState<string>(query);
+type PageProps = {
+  searchParams: { [key: string]: string | undefined };
+};
+
+export default async function Page({ searchParams }: PageProps) {
+  const query: string = searchParams.q || '';
+  const { musicList, tags } = await useAISearchFetch(query);
 
   return (
     <Layout>
-      <div className={styles.searchPageGrid}>
-        <div className={styles.searchLeftTab}></div>
-        <div className={styles.searchRightTab}>
-          <Input
-            id="search"
-            inputPadding={18}
-            iconMargin={48}
-            placeholders={placeholders}
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-        </div>
-      </div>
+      {musicList && tags && <SearchPage musicList={musicList} tags={tags} />}
     </Layout>
   );
 }
