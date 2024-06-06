@@ -11,6 +11,7 @@ import React, {
 import { useAudio } from '@/components/Audio/Audio.context';
 import * as styles from '@/components/Audio/Audio.css';
 import { useAudioDataQuery } from '@/hooks/queries/useAudioDataQuery';
+import { useNumberOfBars } from '@/hooks/useNumberOfBars';
 import { rem } from '@/styles/pxto';
 
 interface WaveformProps {
@@ -35,9 +36,11 @@ const Waveform = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
 
+  const numberOfBars = useNumberOfBars(containerRef, 2);
+
   const { data: bars = [], refetch } = useAudioDataQuery({
     audioUrl,
-    containerRef,
+    numberOfBars,
   });
 
   const {

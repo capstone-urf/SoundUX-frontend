@@ -5,6 +5,7 @@ import { breakpoint, rem, theme } from '@/styles';
 export const header = style({
   ...theme.layouts.rowBetween,
   position: 'fixed',
+  width: '100%',
   paddingBlock: rem(31),
   paddingInline: rem(54),
   zIndex: theme.zIndex.header,
@@ -23,4 +24,15 @@ export const branding = style({
   ...breakpoint({
     tablet: { fontSize: rem(32) },
   }),
+});
+
+export const navigationContainer = style({
+  ...theme.layouts.centerY,
+  gap: rem(40),
+});
+
+export const navigation = style({
+  color: theme.colors.white,
+  fontSize: rem(16),
+  fontWeight: theme.fontWeights.medium,
 });

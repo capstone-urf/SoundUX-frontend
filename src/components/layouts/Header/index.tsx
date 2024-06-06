@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ReactElement } from 'react';
 
 import * as styles from './Header.css';
+import { navigationContainer } from './Header.css';
 
 const barlowCondensed = Barlow_Condensed({
   display: 'swap',
@@ -21,6 +22,22 @@ const Header = (): ReactElement => {
       >
         SoundUX
       </Link>
+      <div className={styles.navigationContainer}>
+        <a
+          className={styles.navigation}
+          href="https://www.musicplug.co.kr"
+          target="blank"
+        >
+          뮤직플러그
+        </a>
+        <a
+          className={styles.navigation}
+          href="http://soundux.co.kr/"
+          target="blank"
+        >
+          사운드유엑스
+        </a>
+      </div>
     </header>
   );
 };

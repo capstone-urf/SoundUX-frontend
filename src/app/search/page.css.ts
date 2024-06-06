@@ -24,7 +24,7 @@ export const tags = styleVariants({
     width: '100%',
     marginTop: rem(16),
     gap: rem(10),
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
     overflowX: 'auto',
   },
   item: {
@@ -37,14 +37,21 @@ export const tags = styleVariants({
   },
 });
 
+export const musicContainer = style({
+  width: '100%',
+  marginTop: rem(16),
+  overflowX: 'auto',
+});
+
 export const music = styleVariants({
   list: {
     ...theme.layouts.columnCenterY,
     width: '100%',
-    marginTop: rem(16),
+    minWidth: rem(680),
   },
   item: {
     ...theme.layouts.rowBetween,
+    width: '100%',
     padding: rem(20),
   },
   metadataContainer: {
