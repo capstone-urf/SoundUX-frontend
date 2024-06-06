@@ -20,7 +20,7 @@ export type Music = {
   instruments: string[];
   key: string;
   bpm: string;
-  duration: string;
+  duration: number;
   maker: MakerItem;
 };
 

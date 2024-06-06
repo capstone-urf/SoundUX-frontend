@@ -13,6 +13,7 @@ export const theme = createGlobalTheme(':root', {
     primary: '#20FFA2',
     secondary: '#8A8A8A',
     background: '#1A1A1A',
+    tag: '#121212',
   },
   fontSizes: {},
   fontWeights: {

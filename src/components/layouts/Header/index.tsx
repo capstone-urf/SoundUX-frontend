@@ -9,6 +9,7 @@ const barlowCondensed = Barlow_Condensed({
   display: 'swap',
   weight: '500',
   subsets: ['latin'],
+  preload: true,
 });
 
 const Header = (): ReactElement => {

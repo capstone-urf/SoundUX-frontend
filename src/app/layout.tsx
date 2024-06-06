@@ -14,6 +14,7 @@ const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
   display: 'swap',
   weight: '45 920',
+  preload: true,
 });
 
 export default function RootLayout({
