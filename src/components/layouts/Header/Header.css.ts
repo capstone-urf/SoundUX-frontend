@@ -6,9 +6,13 @@ export const header = style({
   ...theme.layouts.rowBetween,
   position: 'fixed',
   width: '100%',
-  paddingBlock: rem(31),
+  paddingBlock: rem(12),
   paddingInline: rem(54),
   zIndex: theme.zIndex.header,
+
+  transition: 'transform 0.5s ease 0s',
+  transform: 'translateY(0px)',
+  backdropFilter: 'blur(10px)',
 
   ...breakpoint({
     tablet: { paddingInline: rem(86) },

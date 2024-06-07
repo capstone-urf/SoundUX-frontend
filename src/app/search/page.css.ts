@@ -54,7 +54,7 @@ export const music = styleVariants({
   item: {
     ...theme.layouts.rowBetween,
     width: '100%',
-    minWidth: '680px',
+    minWidth: '720px',
     padding: rem(20),
     flex: '0 0 auto',
   },

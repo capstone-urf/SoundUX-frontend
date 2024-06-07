@@ -1,15 +1,15 @@
 'use client';
+
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import * as styles from '@/app/search/page.css';
 import Audio from '@/components/Audio';
 import Input from '@/components/commons/Input';
 import PlayIcon from '@/components/icons/_components/PlayIcon';
 import Layout from '@/components/layouts/Layout';
-import { placeholders } from '@/constants';
-import useAISearchMutation from '@/hooks/mutations/useAISearchMutation';
+import { placeholders, searchData } from '@/constants';
 import { rem } from '@/styles/pxto';
 import { formatMusicDuration } from '@/utils/music-utils';
 
@@ -17,15 +17,15 @@ export default function Page() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
 
-  const { mutate: searchMutate, data } = useAISearchMutation(query);
-
-  useEffect(() => {
-    if (!query) window.location.href = '/';
-    searchMutate();
-  }, [query, searchMutate]);
+  // const { mutate: searchMutate, data } = useAISearchMutation(query);
+  //
+  // useEffect(() => {
+  //   if (!query) window.location.href = '/';
+  //   searchMutate();
+  // }, [query, searchMutate]);
 
   const [searchQuery, setSearchQuery] = useState(query);
-  // const data = searchData;
+  const data = searchData;
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,7 +68,7 @@ export default function Page() {
                       <div className={styles.music.albumCover}>
                         <Image
                           src={music.maker.image}
-                          alt="album"
+                          alt={music.maker.mail}
                           sizes={rem(56)}
                           fill={true}
                         />
