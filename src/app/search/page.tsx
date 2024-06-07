@@ -8,7 +8,7 @@ import Audio from '@/components/Audio';
 import Input from '@/components/commons/Input';
 import PlayIcon from '@/components/icons/_components/PlayIcon';
 import Layout from '@/components/layouts/Layout';
-import { placeholders, searchData } from '@/constants';
+import { placeholders } from '@/constants';
 import useAISearchMutation from '@/hooks/mutations/useAISearchMutation';
 import { rem } from '@/styles/pxto';
 import { formatMusicDuration } from '@/utils/music-utils';
@@ -17,7 +17,7 @@ export default function Page() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
 
-  const { mutate: searchMutate, data, isPending } = useAISearchMutation(query);
+  const { mutate: searchMutate, data } = useAISearchMutation(query);
 
   useEffect(() => {
     if (!query) window.location.href = '/';
@@ -61,43 +61,41 @@ export default function Page() {
                   </li>
                 ))}
               </ul>
-              <div className={styles.musicContainer}>
-                <ul className={styles.music.list}>
-                  {data.musicList.map(music => (
-                    <li key={music.id} className={styles.music.item}>
-                      <div className={styles.music.metadataContainer}>
-                        <div className={styles.music.albumCover}>
-                          <Image
-                            src={music.maker.image}
-                            alt="album"
-                            sizes={rem(56)}
-                            fill={true}
-                          />
-                        </div>
-                        <span className={styles.music.albumTitleContainer}>
-                          <p>{music.title}</p>
-                          <p className={styles.music.albumArtist}>
-                            {music.artist}
-                          </p>
-                        </span>
-                      </div>
-                      <div className={styles.music.albumControlContainer}>
-                        <Audio
-                          audioUrl={`/audio/${music.id}.mp3`}
-                          width={rem(175)}
-                          height={rem(37)}
-                          showDuration={false}
-                          showPlayPauseButton={false}
+              <ul className={styles.music.list}>
+                {data.musicList.map(music => (
+                  <li key={music.id} className={styles.music.item}>
+                    <div className={styles.music.metadataContainer}>
+                      <div className={styles.music.albumCover}>
+                        <Image
+                          src={music.maker.image}
+                          alt="album"
+                          sizes={rem(56)}
+                          fill={true}
                         />
-                        <p>{formatMusicDuration(music.duration)}</p>
-                        <button className={styles.music.albumControlButton}>
-                          <PlayIcon />
-                        </button>
                       </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      <span className={styles.music.albumTitleContainer}>
+                        <p>{music.title}</p>
+                        <p className={styles.music.albumArtist}>
+                          {music.artist}
+                        </p>
+                      </span>
+                    </div>
+                    <div className={styles.music.albumControlContainer}>
+                      <Audio
+                        audioUrl={`/audio/${music.id}.mp3`}
+                        width={rem(175)}
+                        height={rem(37)}
+                        showDuration={false}
+                        showPlayPauseButton={false}
+                      />
+                      <p>{formatMusicDuration(music.duration)}</p>
+                      <button className={styles.music.albumControlButton}>
+                        <PlayIcon />
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </>
           )}
         </div>

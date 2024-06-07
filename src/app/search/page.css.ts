@@ -1,14 +1,14 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-
 import { breakpoint, rem, theme } from '@/styles';
 
 export const searchPageGrid = style({
   display: 'grid',
   width: '100%',
   maxWidth: rem(1200),
-  gridTemplateColumns: `1fr`,
-
-  ...breakpoint({ tablet: { gridTemplateColumns: `${rem(160)} 1fr` } }),
+  gridTemplateColumns: '100%',
+  ...breakpoint({
+    tablet: { gridTemplateColumns: `${rem(160)} 100%` },
+  }),
 });
 
 export const searchLeftTab = style({});
@@ -16,6 +16,7 @@ export const searchLeftTab = style({});
 export const searchRightTab = style({
   ...theme.layouts.columnCenterX,
   width: '100%',
+  maxWidth: rem(1040),
 });
 
 export const tags = styleVariants({
@@ -26,8 +27,12 @@ export const tags = styleVariants({
     gap: rem(10),
     flexWrap: 'nowrap',
     overflowX: 'auto',
+    listStyleType: 'none',
+    whiteSpace: 'nowrap',
+    padding: 0,
   },
   item: {
+    flex: '0 0 auto',
     padding: `${rem(8)} ${rem(12)}`,
     color: theme.colors.white,
     fontSize: rem(14),
@@ -37,22 +42,21 @@ export const tags = styleVariants({
   },
 });
 
-export const musicContainer = style({
-  width: '100%',
-  marginTop: rem(16),
-  overflowX: 'auto',
-});
-
 export const music = styleVariants({
   list: {
     ...theme.layouts.columnCenterY,
     width: '100%',
-    minWidth: rem(680),
+    overflowX: 'auto',
+    listStyleType: 'none',
+    whiteSpace: 'nowrap',
+    padding: 0,
   },
   item: {
     ...theme.layouts.rowBetween,
     width: '100%',
+    minWidth: '680px',
     padding: rem(20),
+    flex: '0 0 auto',
   },
   metadataContainer: {
     ...theme.layouts.centerY,
