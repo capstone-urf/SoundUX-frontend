@@ -6,7 +6,6 @@ export const inputContainer = style({
   position: 'relative',
   width: '100%',
   maxWidth: rem(931),
-  marginTop: rem(48),
   paddingLeft: rem(60),
   border: `${rem(1)} solid ${theme.colors.border}`,
   borderRadius: rem(16),

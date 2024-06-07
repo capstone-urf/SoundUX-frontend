@@ -6,6 +6,7 @@ import { FormEvent, useState } from 'react';
 
 import * as styles from '@/app/search/page.css';
 import Audio from '@/components/Audio';
+import Checkbox from '@/components/commons/Checkbox';
 import Input from '@/components/commons/Input';
 import PlayIcon from '@/components/icons/_components/PlayIcon';
 import Layout from '@/components/layouts/Layout';
@@ -35,7 +36,25 @@ export default function Page() {
   return (
     <Layout>
       <div className={styles.searchPageGrid}>
-        <div className={styles.searchLeftTab}></div>
+        <div className={styles.searchLeftTab}>
+          <h3 className={styles.filter.sectionTitle}>정렬 방법</h3>
+          <Checkbox label="추천 순" checked={true} />
+
+          <h3 className={styles.filter.sectionTitle}>장르</h3>
+          <div className={styles.filter.section}>
+            {data.tags.genresList.map(genre => (
+              <Checkbox key={genre} label={genre} checked={true} />
+            ))}
+          </div>
+
+          <h3 className={styles.filter.sectionTitle}>악기</h3>
+          <div className={styles.filter.section}>
+            {data.tags.instrumentsList.map(instrument => (
+              <Checkbox key={instrument} label={instrument} checked={true} />
+            ))}
+          </div>
+        </div>
+        <div />
         <div className={styles.searchRightTab}>
           <form style={{ width: '100%' }} onSubmit={handleSearch}>
             <Input
@@ -50,7 +69,7 @@ export default function Page() {
           {data && (
             <>
               <ul className={styles.tags.list}>
-                {data.tags.moodsList.map(mood => (
+                {data.tags.instrumentsList.map(mood => (
                   <li key={mood} className={styles.tags.item}>
                     #{mood}
                   </li>

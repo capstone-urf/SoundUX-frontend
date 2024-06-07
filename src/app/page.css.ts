@@ -37,6 +37,7 @@ export const mainContainer = style({
 });
 
 export const mainTitle = style({
+  marginBottom: rem(48),
   fontSize: rem(32),
   fontWeight: theme.fontWeights.semibold,
   lineHeight: '130%',

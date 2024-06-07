@@ -7,11 +7,31 @@ export const searchPageGrid = style({
   maxWidth: rem(1200),
   gridTemplateColumns: '100%',
   ...breakpoint({
-    tablet: { gridTemplateColumns: `${rem(160)} 100%` },
+    tablet: { gridTemplateColumns: `${rem(180)} ${rem(96)} 100%` },
   }),
 });
 
-export const searchLeftTab = style({});
+export const searchLeftTab = style({
+  ...theme.layouts.column,
+});
+
+export const filter = styleVariants({
+  sectionTitle: {
+    color: theme.colors.white,
+    fontSize: rem(16),
+    fontWeight: theme.fontWeights.medium,
+    marginTop: rem(27),
+    marginBottom: rem(16),
+  },
+  section: {
+    ...theme.layouts.column,
+    gap: rem(12),
+  },
+  sectionContent: {
+    color: theme.colors.white,
+    fontSize: rem(15),
+  },
+});
 
 export const searchRightTab = style({
   ...theme.layouts.columnCenterX,
