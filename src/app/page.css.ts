@@ -37,6 +37,7 @@ export const mainContainer = style({
 });
 
 export const mainTitle = style({
+  marginBottom: rem(48),
   fontSize: rem(32),
   fontWeight: theme.fontWeights.semibold,
   lineHeight: '130%',
@@ -47,6 +48,11 @@ export const mainTitle = style({
     tablet: { fontSize: rem(48) },
     desktop: { fontSize: rem(64) },
   }),
+});
+
+export const mainInputForm = style({
+  width: '100%',
+  maxWidth: theme.sizes.main,
 });
 
 export const showcaseContainer = style({

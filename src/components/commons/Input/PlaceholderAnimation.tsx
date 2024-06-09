@@ -1,16 +1,20 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, ReactElement } from 'react';
 
+import { rem } from '@/styles/pxto';
+
 import * as styles from './Input.css';
 
 interface PlaceholderAnimationProps {
   placeholders: string[];
   duration: number;
+  iconMargin: number;
 }
 
 const PlaceholderAnimation = ({
   placeholders,
   duration,
+  iconMargin,
 }: PlaceholderAnimationProps): ReactElement => {
   const [index, setIndex] = useState(0);
 
@@ -22,7 +26,12 @@ const PlaceholderAnimation = ({
   }, [placeholders, duration]);
 
   return (
-    <div className={styles.placeholderWrapper}>
+    <div
+      className={styles.placeholderWrapper}
+      style={{
+        paddingLeft: `${rem(iconMargin)}`,
+      }}
+    >
       <AnimatePresence mode="wait">
         <motion.span
           key={placeholders[index]}

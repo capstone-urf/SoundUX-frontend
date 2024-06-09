@@ -11,6 +11,7 @@ import React, {
 import { useAudio } from '@/components/Audio/Audio.context';
 import * as styles from '@/components/Audio/Audio.css';
 import { useAudioDataQuery } from '@/hooks/queries/useAudioDataQuery';
+import { useNumberOfBars } from '@/hooks/useNumberOfBars';
 import { rem } from '@/styles/pxto';
 
 interface WaveformProps {
@@ -35,9 +36,11 @@ const Waveform = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
 
+  const numberOfBars = useNumberOfBars(containerRef, 2);
+
   const { data: bars = [], refetch } = useAudioDataQuery({
     audioUrl,
-    containerRef,
+    numberOfBars,
   });
 
   const {
@@ -75,7 +78,7 @@ const Waveform = ({
         const offsetX = clientX - rect.left;
         const newTime = (offsetX / rect.width) * duration;
         setCurrentTime(newTime);
-        audioRef.current.currentTime = newTime; // Ensure audio element's current time is updated
+        audioRef.current.currentTime = newTime;
       }
     },
     [duration, setCurrentTime, audioRef],
@@ -116,7 +119,7 @@ const Waveform = ({
           if (audioRef.current)
             audioRef.current.currentTime = Math.max(currentTime - 5, 0);
         } else if (e.key === ' ') {
-          e.preventDefault(); // Prevent default spacebar action
+          e.preventDefault();
           handlePlayPause();
         }
       }

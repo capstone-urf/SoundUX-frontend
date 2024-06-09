@@ -10,4 +10,7 @@ export const QUERIES = {
   AUDIO: {
     KEY: 'audio',
   },
+  AI: {
+    SEARCH_KEY: 'ai-search',
+  },
 };

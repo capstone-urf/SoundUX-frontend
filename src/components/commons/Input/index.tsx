@@ -8,6 +8,7 @@ import {
 import { v4 } from 'uuid';
 
 import { SearchIcon } from '@/components/icons';
+import { rem } from '@/styles/pxto';
 
 import * as styles from './Input.css';
 import PlaceholderAnimation from './PlaceholderAnimation';
@@ -16,6 +17,8 @@ type InputProps = {
   id?: string;
   isValid?: boolean;
   style?: CSSProperties;
+  inputPadding?: number;
+  iconMargin?: number;
   placeholders?: string[];
   placeholderDuration?: number;
 } & ComponentPropsWithoutRef<'input'>;
@@ -24,7 +27,15 @@ const placeholderTexts = ['어떤 것을 찾으시나요?'];
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { id: propId, style, placeholders, placeholderDuration = 3000, ...props },
+    {
+      id: propId,
+      style,
+      inputPadding = 30,
+      iconMargin = 60,
+      placeholders,
+      placeholderDuration = 3000,
+      ...props
+    },
     ref,
   ) => {
     const [id, setId] = useState(propId || v4());
@@ -34,15 +45,36 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     }, [propId]);
 
     return (
-      <div className={styles.inputContainer} style={style}>
-        <input id={id} ref={ref} className={styles.input} required {...props} />
+      <div
+        className={styles.inputContainer}
+        style={{
+          ...(style || {}),
+          paddingLeft: `${rem(iconMargin)}`,
+        }}
+      >
+        <input
+          id={id}
+          ref={ref}
+          className={styles.input}
+          style={{
+            padding: `${rem(inputPadding)} ${rem(inputPadding)} ${rem(inputPadding)} 0`,
+          }}
+          required
+          {...props}
+        />
         {props.value === '' && (
           <PlaceholderAnimation
             placeholders={placeholders || placeholderTexts}
             duration={placeholderDuration}
+            iconMargin={iconMargin}
           />
         )}
-        <span className={styles.inputIcon}>
+        <span
+          className={styles.inputIcon}
+          style={{
+            left: rem(inputPadding),
+          }}
+        >
           <SearchIcon width={18} height={18} fill="#8B8B8B" />
         </span>
       </div>

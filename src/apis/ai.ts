@@ -1,12 +1,10 @@
 import instance from '@/apis';
-import { AnalysisRequest, AnalysisResponse } from '@/types/Music';
+import { AISearchResponse } from '@/types/music';
 
-export const postAnalysis = async (request: AnalysisRequest) => {
-  const { data } = await instance.post<AnalysisResponse>(
-    `/ai/v1/analysis`,
-    { script: request.script },
-    { headers: { Authorization: `Bearer ${request.secret}` } },
-  );
+export const postAISearch = async (script: string) => {
+  const { data } = await instance.post<AISearchResponse>(`/v2/ai/music`, {
+    script,
+  });
 
   return data;
 };
