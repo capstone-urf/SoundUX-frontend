@@ -1,1 +1,2 @@
 /audio/* https://www.musicplug.co.kr/preview/:splat 200!
+/api/* https://api-soundux.haklee.me/:splat 200!
