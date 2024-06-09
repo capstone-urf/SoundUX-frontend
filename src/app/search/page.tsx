@@ -106,7 +106,7 @@ export default function Page({ searchParams }: PageProps) {
                     </div>
                     <div className={styles.music.albumControlContainer}>
                       <Audio
-                        audioUrl={`/audio/${music.id}.mp3`}
+                        audioUrl={`https://www.musicplug.co.kr/preview/audio/${music.id}.mp3`}
                         width={rem(175)}
                         height={rem(37)}
                         showDuration={false}
