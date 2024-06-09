@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+
 import { breakpoint, rem, theme } from '@/styles';
 
 export const searchPageGrid = style({

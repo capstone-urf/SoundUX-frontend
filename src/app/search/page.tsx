@@ -1,37 +1,42 @@
 'use client';
 
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import * as styles from '@/app/search/page.css';
 import Audio from '@/components/Audio';
 import Checkbox from '@/components/commons/Checkbox';
 import Input from '@/components/commons/Input';
+import Spinner from '@/components/commons/Spinner';
 import PlayIcon from '@/components/icons/_components/PlayIcon';
 import Layout from '@/components/layouts/Layout';
-import { placeholders, searchData } from '@/constants';
+import { placeholders } from '@/constants';
+import useAISearchMutation from '@/hooks/mutations/useAISearchMutation';
 import { rem } from '@/styles/pxto';
 import { formatMusicDuration } from '@/utils/music-utils';
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
+type PageProps = {
+  searchParams: { [key: string]: string | undefined };
+};
 
-  // const { mutate: searchMutate, data } = useAISearchMutation(query);
-  //
-  // useEffect(() => {
-  //   if (!query) window.location.href = '/';
-  //   searchMutate();
-  // }, [query, searchMutate]);
+export default function Page({ searchParams }: PageProps) {
+  const query: string = searchParams.q || '';
+
+  const { mutate: searchMutate, data } = useAISearchMutation(query);
+
+  useEffect(() => {
+    if (!query) window.location.href = '/';
+    searchMutate();
+  }, [query, searchMutate]);
 
   const [searchQuery, setSearchQuery] = useState(query);
-  const data = searchData;
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     window.location.href = `/search?q=${searchQuery}`;
   };
+
+  if (data === undefined) return <Spinner />;
 
   return (
     <Layout>

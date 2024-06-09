@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ReactElement } from 'react';
 
 import * as styles from './Header.css';
-import { navigationContainer } from './Header.css';
 
 const barlowCondensed = Barlow_Condensed({
   display: 'swap',
